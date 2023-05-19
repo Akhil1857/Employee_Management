@@ -6,7 +6,7 @@ sealed trait Designation
 object Designation extends Designation {
   case object TechnicalArchitect extends Designation
 
-  case object SoftwareDevelopment extends Designation
+  case object SoftwareDeveloper extends Designation
 
   case object SoftwareTester extends Designation
 
@@ -33,7 +33,7 @@ object Departments {
     override def toString: String = "Technical"
   }
 
-  case object SoftwareDevelopment extends Technical {
+  case object SoftwareDeveloper extends Technical {
     override def toString: String = "Technical"
   }
 

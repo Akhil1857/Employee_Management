@@ -1,72 +1,95 @@
 package database
 
+import app.Main.stringToDesignation
 import structure.{Designation, EmployeeFields}
-/*
-* create table (
-* id serial NOT NULL PRIMARY KEY,
-* name varchar(200) NOT NULL,
-*
-*
-*
-* */
+
+import java.sql.{ResultSet, SQLException}
+import scala.annotation.tailrec
 import scala.collection.mutable.ListBuffer
-import scala.util.Try
+import scala.language.implicitConversions
+import scala.util.{Failure, Success, Try}
 
 class DAOImpl extends DAO {
 
-//  val statement = Connection.connection.createStatement()
-//  val query = "SELECT * FROM usertbl ;"
-//  statement.executeQuery(query)
-
-  private var employeeDatabase: ListBuffer[EmployeeFields] = ListBuffer.empty
+  private val statement = Connection.connection.createStatement()
 
   override def addEmployee(employee: EmployeeFields): Try[String] = Try {
-//    val query = s"INSERT INTO usertbL(fiels..........) values ( '${employee.employeeName}',) "
-//
-//    statement.executeQuery(query)
-    assert(employee.employeeName.nonEmpty && employee.employeeName.length < 20)
+    val query = s"insert into employees(employee_name ,employee_age,employee_email,employee_dob,designation,department)values ('${employee.employeeName}',${employee.employeeAge},'${employee.employeeEmail}','${employee.employeeDOB}','${employee.designation}','${employee.department}')"
 
-    assert(employee.employeeID > 0)
-    assert {
-      if ("""(?=[^\s]+)(?=(\w+)@([\w\.]+))""".r.findFirstIn(employee.employeeEmail).isEmpty) false else true
-    }
-    employeeDatabase += employee
-    s"User having ${employee.employeeID} as employee Id added Successfully"
-  }
-
-  override def getDetailsById(employeeId: Int): Option[EmployeeFields] = {
-    employeeDatabase.find(_.employeeID == employeeId)
-  }
-
-  override def getOrganizationDetails: Try[ListBuffer[EmployeeFields]] = Try {
-    employeeDatabase
-  }
-
-  override def updateDetailsById(employeeID: Int, entryToUpdate: String): Try[ListBuffer[EmployeeFields]] = Try {
-    employeeDatabase.map {
-      case person if person.employeeID == employeeID => person.copy(employeeName = entryToUpdate)
-      case person => person
+    Try(statement.executeQuery(query)) match {
+      case Success(_) => ""
+      case Failure(exception) => exception.getMessage
     }
   }
 
-  override def deleteDetailsById(employeeId: Int): Try[ListBuffer[EmployeeFields]] = Try {
-    employeeDatabase = employeeDatabase.filterNot(_.employeeID == employeeId)
-    employeeDatabase
+  override def getDetailsById(employeeId: Int): Try[List[EmployeeFields]] = Try {
+    val query = s"select * from employees where employee_id = $employeeId"
+    Try(statement.executeQuery(query)) match {
+      case Success(resultSet) => resultSet    // Implicitly Called resultSet => List[EmployeeFields]
+      case Failure(_) => throw new SQLException
+    }
   }
 
-  override def deleteAll(): Try[String] = Try {
-    employeeDatabase.clear()
-    "No details Present in the database -- All Clear"
+  override def getOrganizationDetails: Try[List[EmployeeFields]] = Try {
+    val query = "select * from employees"
+    Try(statement.executeQuery(query)) match {
+      case Success(resultSet: ResultSet) => resultSet
+      case Failure(_) => throw new SQLException
+    }
   }
 
-  override def filterDepartment(departments: String): Try[ListBuffer[EmployeeFields]] = Try {
-    employeeDatabase.filter(employee => employee.department == departments)
+  override def updateNameById(employeeID: Int, entryToUpdate: String): Try[String] = Try {
+    val query = s"update employees set employee_name = '$entryToUpdate' where employee_id = $employeeID"
+    Try(statement.executeQuery(query))
+    ""
   }
 
-  override def filterByDesignation(designation: Designation): Try[ListBuffer[EmployeeFields]] = Try {
-    employeeDatabase.filter(employee => employee.designation == designation)
+  override def deleteDetailsById(employeeId: Int): Try[String] = Try {
+    val query = s"delete from employees where employee_id = $employeeId"
+    Try(statement.executeQuery(query))
+    ""
   }
 
+    override def deleteAll(): Try[String] = Try {
+     val query = s"delete from employees"
+      Try(statement.executeQuery(query))
+      ""
+    }
 
+    override def filterDepartment(departments: String): Try[List[EmployeeFields]] = Try {
+      val query = s"select * from employees where department = '$departments'"
+      Try(statement.executeQuery(query)) match {
+        case Success(resultSet: ResultSet) => resultSet
+        case Failure(_) => throw new SQLException()
+      }
+
+    }
+
+    override def filterByDesignation(designation: Designation): Try[List[EmployeeFields]] = Try {
+      val query = s"select * from employees where designation = '$designation'"
+      Try(statement.executeQuery(query)) match {
+        case Success(resultSet: ResultSet) => resultSet
+        case Failure(_) => throw new SQLException()
+      }
+    }
+
+  private val listBuffer = ListBuffer[EmployeeFields]()
+
+  @tailrec
+  implicit private def resultSetToList(resultSet: ResultSet): List[EmployeeFields] = {
+    if (resultSet.next()) {
+      val name = resultSet.getString("employee_name")
+      val age = resultSet.getInt("employee_age")
+      val email = resultSet.getString("employee_email")
+      val dob = resultSet.getString("employee_dob")
+      val department = resultSet.getString("department")
+      val designation = resultSet.getString("designation")
+
+      listBuffer += EmployeeFields(name, age, email, dob, designation, department)
+      resultSetToList(resultSet)
+    }
+    else
+      listBuffer.toList
+  }
 }
 

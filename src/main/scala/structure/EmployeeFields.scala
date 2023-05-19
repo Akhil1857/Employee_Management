@@ -1,7 +1,6 @@
 package structure
 
-case class EmployeeFields(employeeID: Int,
-                          employeeName: String,
+case class EmployeeFields(employeeName: String,
                           employeeAge: Int,
                           employeeEmail: String,
                           employeeDOB: String,

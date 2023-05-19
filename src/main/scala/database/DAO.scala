@@ -2,25 +2,24 @@ package database
 
 import structure.{Designation, EmployeeFields}
 
-import scala.collection.mutable.ListBuffer
 import scala.util.Try
 
 trait DAO {
 
   def addEmployee(employee: EmployeeFields): Try[String]
 
-  def getDetailsById(employeeId: Int): Option[EmployeeFields]
+  def getDetailsById(employeeId: Int): Try[List[EmployeeFields]]
 
-  def getOrganizationDetails: Try[ListBuffer[EmployeeFields]]
+  def getOrganizationDetails: Try[List[EmployeeFields]]
 
-  def updateDetailsById(employeeID: Int, entryToUpdate: String): Try[ListBuffer[EmployeeFields]]
+  def updateNameById(employeeID: Int, entryToUpdate: String): Try[String]
 
-  def deleteDetailsById(employeeId: Int): Try[ListBuffer[EmployeeFields]]
+  def deleteDetailsById(employeeId: Int): Try[String]
 
   def deleteAll(): Try[String]
 
-  def filterDepartment(departments: String): Try[ListBuffer[EmployeeFields]]
+  def filterDepartment(departments: String): Try[List[EmployeeFields]]
 
-  def filterByDesignation(designation: Designation): Try[ListBuffer[EmployeeFields]]
+  def filterByDesignation(designation: Designation): Try[List[EmployeeFields]]
 
 }

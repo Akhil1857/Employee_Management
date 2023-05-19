@@ -3,7 +3,6 @@ package service
 import database.DAO
 import structure.{Designation, EmployeeFields}
 
-import scala.collection.mutable.ListBuffer
 import scala.util.Try
 
 class Services(employeeDB: DAO) {
@@ -12,34 +11,34 @@ class Services(employeeDB: DAO) {
     employeeDB.addEmployee(employee)
   }
 
-  def getDetailsById(employeeId: Int): Option[EmployeeFields] = {
+  def getDetailsById(employeeId: Int): Try[List[EmployeeFields]] = {
     employeeDB.getDetailsById(employeeId)
   }
 
-  def getOrganizationDetails: Try[ListBuffer[EmployeeFields]] = {
+  def getOrganizationDetails: Try[List[EmployeeFields]] = {
     employeeDB.getOrganizationDetails
   }
 
-  def updateDetailsById(employeeID: Int, entryToUpdate: String): Try[ListBuffer[EmployeeFields]] = {
-    employeeDB.updateDetailsById(employeeID, entryToUpdate)
+  def updateNameById(employeeID: Int, entryToUpdate: String): Try[String] = {
+    employeeDB.updateNameById(employeeID, entryToUpdate)
   }
 
-  def deleteDetailsById(employeeId: Int): Try[ListBuffer[EmployeeFields]] = {
-    employeeDB.deleteDetailsById(employeeId)
-  }
+    def deleteDetailsById(employeeId: Int): Try[String] = {
+      employeeDB.deleteDetailsById(employeeId)
+    }
 
-  def deleteAll(): Try[String] = {
-    employeeDB.deleteAll()
-  }
+    def deleteAll(): Try[String] = {
+      employeeDB.deleteAll()
+    }
 
-  def filterDepartment(departments: String): Try[ListBuffer[EmployeeFields]] = {
+    def filterDepartment(departments: String): Try[List[EmployeeFields]] = {
 
-    employeeDB.filterDepartment(departments)
-  }
+      employeeDB.filterDepartment(departments)
+    }
 
-  def filterByDesignation(designation: Designation): Try[ListBuffer[EmployeeFields]] = {
-    employeeDB.filterByDesignation(designation)
-  }
+    def filterByDesignation(designation: Designation): Try[List[EmployeeFields]] = {
+      employeeDB.filterByDesignation(designation)
+    }
 
 
 }
