@@ -1,6 +1,6 @@
-package database
+package com.Nastech.database
 
-import structure.{Designation, EmployeeFields}
+import com.Nastech.structure.{Designation, EmployeeFields}
 
 import scala.util.Try
 

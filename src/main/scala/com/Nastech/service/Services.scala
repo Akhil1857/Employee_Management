@@ -1,7 +1,7 @@
-package service
+package com.Nastech.service
 
-import database.DAO
-import structure.{Designation, EmployeeFields}
+import com.Nastech.database.DAO
+import com.Nastech.structure.{Designation, EmployeeFields}
 
 import scala.util.Try
 

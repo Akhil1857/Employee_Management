@@ -1,4 +1,4 @@
-package structure
+package com.Nastech.structure
 
 case class EmployeeFields(employeeName: String,
                           employeeAge: Int,

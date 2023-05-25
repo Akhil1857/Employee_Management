@@ -1,5 +1,4 @@
-package structure
-
+package com.Nastech.structure
 
 sealed trait Designation
 

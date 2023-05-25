@@ -1,7 +1,7 @@
-package database
+package com.Nastech.database
 
-import app.Main.stringToDesignation
-import structure.{Designation, EmployeeFields}
+import com.Nastech.app.Main.stringToDesignation
+import com.Nastech.structure.{Designation, EmployeeFields}
 
 import java.sql.{ResultSet, SQLException}
 import scala.annotation.tailrec
@@ -16,10 +16,8 @@ class DAOImpl extends DAO {
   override def addEmployee(employee: EmployeeFields): Try[String] = Try {
     val query = s"insert into employees(employee_name ,employee_age,employee_email,employee_dob,designation,department)values ('${employee.employeeName}',${employee.employeeAge},'${employee.employeeEmail}','${employee.employeeDOB}','${employee.designation}','${employee.department}')"
 
-    Try(statement.executeQuery(query)) match {
-      case Success(_) => ""
-      case Failure(exception) => exception.getMessage
-    }
+    Try(statement.executeQuery(query))
+    "Data Inserted Successfully"
   }
 
   override def getDetailsById(employeeId: Int): Try[List[EmployeeFields]] = Try {
@@ -47,13 +45,13 @@ class DAOImpl extends DAO {
   override def deleteDetailsById(employeeId: Int): Try[String] = Try {
     val query = s"delete from employees where employee_id = $employeeId"
     Try(statement.executeQuery(query))
-    ""
+    "Deleted Successfully."
   }
 
     override def deleteAll(): Try[String] = Try {
      val query = s"delete from employees"
       Try(statement.executeQuery(query))
-      ""
+      "No details Present in the database -- All Clear"
     }
 
     override def filterDepartment(departments: String): Try[List[EmployeeFields]] = Try {

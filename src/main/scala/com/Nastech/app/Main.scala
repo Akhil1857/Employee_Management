@@ -1,9 +1,9 @@
-package app
+package com.Nastech.app
 
-import database.DAOImpl
-import service.Services
-import structure.Designation._
-import structure.{Designation, EmployeeFields}
+import com.Nastech.database.DAOImpl
+import com.Nastech.service.Services
+import com.Nastech.structure.{Designation, EmployeeFields}
+import com.Nastech.structure.Designation.{AdminAssistant, Marketing, Receptionist, Sales, SoftwareDeveloper, SoftwareTester, TechnicalArchitect}
 
 import scala.io.StdIn
 import scala.language.implicitConversions
@@ -11,7 +11,7 @@ import scala.util.{Failure, Success}
 
 object Main extends App {
 
-  val daoImpl = new DAOImpl
+  private val daoImpl = new DAOImpl
   val service = new Services(daoImpl)
 
   println("Enter your Choice: ")
@@ -28,6 +28,7 @@ object Main extends App {
     case 6 => deleteAll()
     case 7 => filterDepartment()
     case 8 => filterDesignation()
+    case _ => println("Invalid Input.")
   }
 
   private def addEmployee(): Unit = {
@@ -43,7 +44,6 @@ object Main extends App {
     val department = StdIn.readLine()
     println("Enter Designation{TechnicalArchitect,SoftwareDeveloper,SoftwareTester,Sales,Marketing,AdminAssistant,Receptionist}")
     val initialDesignation = StdIn.readLine()
-    //val finalDesignation = stringToDesignation(initialDesignation)
 
     val employee = EmployeeFields(name, age, email, dob, initialDesignation, department)
     val result = service.addEmployee(employee)
@@ -53,7 +53,7 @@ object Main extends App {
     }
   }
 
-   private def getDetailsById(): Unit = {
+  private def getDetailsById(): Unit = {
     println("Enter the Employee_ID")
     val employeeId = StdIn.readInt()
     val result = service.getDetailsById(employeeId)
@@ -111,7 +111,7 @@ object Main extends App {
     println(result)
   }
 
-    implicit def stringToDesignation(string: String): Designation = {
+  implicit def stringToDesignation(string: String): Designation = {
     string match {
       case ("TechnicalArchitect") => TechnicalArchitect
       case ("SoftwareDeveloper") => SoftwareDeveloper
