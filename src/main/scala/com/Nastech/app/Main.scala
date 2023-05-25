@@ -105,7 +105,7 @@ object Main extends App {
   }
 
   private def filterDesignation(): Unit = {
-    println("Enter the Designation")
+    println("Enter  the Designation")
     val designation = StdIn.readLine()
     val result = service.filterByDesignation(designation)
     println(result)
@@ -120,6 +120,7 @@ object Main extends App {
       case ("Marketing") => Marketing
       case ("AdminAssistant") => AdminAssistant
       case ("Receptionist") => Receptionist
+
     }
   }
 }
