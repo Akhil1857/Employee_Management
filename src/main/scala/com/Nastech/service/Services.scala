@@ -23,22 +23,22 @@ class Services(employeeDB: DAO) {
     employeeDB.updateNameById(employeeID, entryToUpdate)
   }
 
-    def deleteDetailsById(employeeId: Int): Try[String] = {
-      employeeDB.deleteDetailsById(employeeId)
-    }
+  def deleteDetailsById(employeeId: Int): Try[String] = {
+    employeeDB.deleteDetailsById(employeeId)
+  }
 
-    def deleteAll(): Try[String] = {
-      employeeDB.deleteAll()
-    }
+  def deleteAll(): Try[String] = {
+    employeeDB.deleteAll()
+  }
 
-    def filterDepartment(departments: String): Try[List[EmployeeFields]] = {
+  def filterDepartment(departments: String): Try[List[EmployeeFields]] = {
 
-      employeeDB.filterDepartment(departments)
-    }
+    employeeDB.filterDepartment(departments)
+  }
 
-    def filterByDesignation(designation: Designation): Try[List[EmployeeFields]] = {
-      employeeDB.filterByDesignation(designation)
-    }
+  def filterByDesignation(designation: Designation): Try[List[EmployeeFields]] = {
+    employeeDB.filterByDesignation(designation)
+  }
 
 
 }
