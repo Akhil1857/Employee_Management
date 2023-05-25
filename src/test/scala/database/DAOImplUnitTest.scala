@@ -82,15 +82,15 @@ class DAOImplUnitTest extends AnyFlatSpec with Matchers {
         case Failure(_) => false
       }
     }
-//
-//    it should "return the Empty ListBuffer after deleting all the data from it" in {
-//      val expectedResult = ""
-//      val actualResult = DAOImpl.deleteAll()
-//      actualResult match {
-//        case Success(value) => assert(value == expectedResult)
-//        case Failure(_) => false
-//      }
-//    }
+
+    it should "return the Empty ListBuffer after deleting all the data from it" in {
+      val expectedResult = ""
+      val actualResult = DAOImpl.deleteAll()
+      actualResult match {
+        case Success(value) => assert(value == expectedResult)
+        case Failure(_) => false
+      }
+    }
 
 
 }
