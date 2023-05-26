@@ -8,11 +8,10 @@ lazy val root = (project in file("."))
   )
 
 
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.6"
-
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % Test
-libraryDependencies += "org.scalatestplus" %% "mockito-4-6" % "3.2.15.0" % "test"
-
-libraryDependencies += "org.postgresql" % "postgresql" % "42.5.4"
-
-libraryDependencies += "com.typesafe" % "config" % "1.4.2"
+libraryDependencies ++= Seq(
+  "ch.qos.logback" % "logback-classic" % "1.4.6",
+  "org.scalatest" %% "scalatest" % "3.2.15" % Test,
+  "org.scalatestplus" %% "mockito-4-6" % "3.2.15.0" % "test",
+  "org.postgresql" % "postgresql" % "42.5.4",
+  "com.typesafe" % "config" % "1.4.2"
+)
