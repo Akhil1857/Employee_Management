@@ -14,5 +14,4 @@ libraryDependencies ++= Seq(
   "org.scalatestplus" %% "mockito-4-6" % "3.2.15.0" % "test",
   "org.postgresql" % "postgresql" % "42.5.4",
   "com.typesafe" % "config" % "1.4.2"
-
 )
