@@ -47,3 +47,10 @@ Once the Employee Management System is set up and running, you can perform the f
 # Conclusion
 
 The Employee Management System is a powerful tool for managing employee data efficiently. By leveraging a PostgreSQL database and Scala, it provides a robust solution for organizing and processing employee information. Follow the setup instructions and start using the system to streamline your employee management tasks.
+
+# Testcase Coverage.
+![Screenshot from 2023-05-26 15-11-42](https://github.com/Akhil1857/Employee_Management/assets/125340453/f88fa9fa-da03-4a0f-b93a-3a616dc4c897)
+
+# Output
+
+
