@@ -46,7 +46,7 @@ class DAOImplUnitTest extends AnyFlatSpec with Matchers {
   }
 
   it should "Update employee name by using ID return a updated List[Employees]" in {
-    val expectedResult = DAOImpl.updateNameById(36,"Ayush Mishra")
+    val expectedResult = DAOImpl.updateNameById(36, "Ayush Mishra")
     expectedResult.isSuccess shouldBe true
     expectedResult.get shouldBe ""
   }
@@ -91,6 +91,4 @@ class DAOImplUnitTest extends AnyFlatSpec with Matchers {
       case Failure(_) => false
     }
   }
-
-
 }
