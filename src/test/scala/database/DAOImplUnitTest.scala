@@ -33,64 +33,64 @@ class DAOImplUnitTest extends AnyFlatSpec with Matchers {
     expectedResult.get shouldBe "Data Inserted Successfully"
   }
 
-    it should "return the List[Employee]" in {
-      val employee = List(EmployeeFields("Akhil Trivedi", 22, "Akhiltrivedi83@gmail.com", "2000-04-08", SoftwareDeveloper, "Technical"),
-        EmployeeFields("John", 24, "Johnmishra3gmail.com", "2012-09-08", SoftwareDeveloper, "Technical"),
-        EmployeeFields("David", 22, "DavidKalal83@gmail.com", "1992-04-09", TechnicalArchitect, "Technical"))
+  it should "return the List[Employee]" in {
+    val employee = List(EmployeeFields("Akhil Trivedi", 22, "Akhiltrivedi83@gmail.com", "2002-04-08", TechnicalArchitect, "Technical"),
+      EmployeeFields("John", 24, "Johnmishra3gmail.com", "2012-09-08", SoftwareDeveloper, "Technical"),
+      EmployeeFields("David", 22, "DavidKalal83@gmail.com", "1992-04-09", TechnicalArchitect, "Technical"))
 
-      val expectedResult = DAOImpl.getOrganizationDetails
-      expectedResult match {
-        case Success(value) => assert(value == employee)
-        case Failure(_) => false
-      }
+    val expectedResult = DAOImpl.getOrganizationDetails
+    expectedResult match {
+      case Success(value) => assert(value == employee)
+      case Failure(_) => false
     }
+  }
 
   it should "Update employee name by using ID return a updated List[Employees]" in {
     val expectedResult = DAOImpl.updateNameById(36,"Ayush Mishra")
-      expectedResult.isSuccess shouldBe true
-      expectedResult.get shouldBe ""
-    }
+    expectedResult.isSuccess shouldBe true
+    expectedResult.get shouldBe ""
+  }
 
-    it should "return the details of the employee with the given ID" in {
-      val employee = List(EmployeeFields("Akhil Trivedi", 22, "Akhiltrivedi83@gmail.com", "2000-04-08", SoftwareDeveloper, "Technical"))
-      DAOImpl.getDetailsById(33) match {
-        case Success(value) => assert(value == employee)
-        case Failure(_) => false
-      }
+  it should "return the details of the employee with the given ID" in {
+    val employee = List(EmployeeFields("Akhil Trivedi", 22, "Akhiltrivedi83@gmail.com", "2000-04-08", SoftwareDeveloper, "Technical"))
+    DAOImpl.getDetailsById(33) match {
+      case Success(value) => assert(value == employee)
+      case Failure(_) => false
     }
+  }
 
-    it should "delete the details of the Employee for the given ID" in {
-      DAOImpl.deleteDetailsById(35) match {
-        case Success(value) => assert(value == "")
-        case Failure(_) => false
-      }
+  it should "delete the details of the Employee for the given ID" in {
+    DAOImpl.deleteDetailsById(35) match {
+      case Success(value) => assert(value == "")
+      case Failure(_) => false
     }
+  }
 
-    it should "return the details of the Employee in the Specific Department" in {
-      val expectedOutput = List.empty
-      DAOImpl.filterDepartment("Helper") match {
-        case Success(value) => assert(value == expectedOutput)
-        case Failure(_) => false
-      }
+  it should "return the details of the Employee in the Specific Department" in {
+    val expectedOutput = List.empty
+    DAOImpl.filterDepartment("Helper") match {
+      case Success(value) => assert(value == expectedOutput)
+      case Failure(_) => false
     }
+  }
 
-    it should "return the details of the Employee of the given designation" in {
-      val expectedResult = List(EmployeeFields("Ayush Mishra", 22, "DavidKalal83@gmail.com", "1992-04-09", TechnicalArchitect, "Technical"))
-      val actualResult = DAOImpl.filterByDesignation(TechnicalArchitect)
-      actualResult match {
-        case Success(value) => assert(value == expectedResult)
-        case Failure(_) => false
-      }
+  it should "return the details of the Employee of the given designation" in {
+    val expectedResult = List(EmployeeFields("Ayush Mishra", 22, "DavidKalal83@gmail.com", "1992-04-09", TechnicalArchitect, "Technical"))
+    val actualResult = DAOImpl.filterByDesignation(TechnicalArchitect)
+    actualResult match {
+      case Success(value) => assert(value == expectedResult)
+      case Failure(_) => false
     }
+  }
 
-    it should "return the Empty ListBuffer after deleting all the data from it" in {
-      val expectedResult = ""
-      val actualResult = DAOImpl.deleteAll()
-      actualResult match {
-        case Success(value) => assert(value == expectedResult)
-        case Failure(_) => false
-      }
+  it should "return the Empty List after deleting all the data from it" in {
+    val expectedResult = "No details Present in the database -- All Clear"
+    val actualResult = DAOImpl.deleteAll()
+    actualResult match {
+      case Success(value) => assert(value == expectedResult)
+      case Failure(_) => false
     }
+  }
 
 
 }
