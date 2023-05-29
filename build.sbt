@@ -15,3 +15,5 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "42.5.4",
   "com.typesafe" % "config" % "1.4.2"
 )
+
+coverageExcludedPackages := "<empty>;/home/knoldus/Scala Assignment-KUP/Office-Management/src/main/scala/com/Nastech/app\\..*"
