@@ -15,7 +15,7 @@ class ServicesTest extends AnyFlatSpec with MockitoSugar {
   val daoImpl: DAOImpl = mock[DAOImpl]
   val service = new Services(daoImpl)
 
-  "addEmployee" should "add the employee into the list buffer" in {
+  "addEmployee" should "add the employee into the database" in {
     val employee = EmployeeFields("Akhil Trivedi", 22, "Akhiltrivedi83@gmail.com", "08/04/2002", TechnicalArchitect, "Technical")
     when(daoImpl.addEmployee(employee)).thenReturn(Try("Data Inserted Successfully"))
     val actualOutput = service.addEmployee(employee)
@@ -25,7 +25,7 @@ class ServicesTest extends AnyFlatSpec with MockitoSugar {
     }
   }
 
-  it should "add the new employee into the list buffer" in {
+  it should "add the new employee into the database" in {
     val employee = EmployeeFields("John", 24, "Johnmishra@3gmail.com", "08/09/2012", SoftwareDeveloper, "Technical")
     when(daoImpl.addEmployee(employee)).thenReturn(Try("Data Inserted Successfully"))
     val actualOutput = service.addEmployee(employee)
