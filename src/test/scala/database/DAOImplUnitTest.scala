@@ -34,7 +34,7 @@ class DAOImplUnitTest extends AnyFlatSpec with Matchers {
   }
 
     it should "return the List[Employee]" in {
-      val employee = List(EmployeeFields("Akhil Trivedi", 22, "Akhiltrivedi83@gmail.com", "2000-04-08", SoftwareDeveloper, "Technical"),
+      val employee = List(EmployeeFields("Akhil Trivedi", 22, "Akhiltrivedi83@gmail.com", "2002-04-08", TechnicalArchitect, "Technical"),
         EmployeeFields("John", 24, "Johnmishra3gmail.com", "2012-09-08", SoftwareDeveloper, "Technical"),
         EmployeeFields("David", 22, "DavidKalal83@gmail.com", "1992-04-09", TechnicalArchitect, "Technical"))
 
@@ -83,8 +83,8 @@ class DAOImplUnitTest extends AnyFlatSpec with Matchers {
       }
     }
 
-    it should "return the Empty ListBuffer after deleting all the data from it" in {
-      val expectedResult = ""
+    it should "return the Empty List after deleting all the data from it" in {
+      val expectedResult = "No details Present in the database -- All Clear"
       val actualResult = DAOImpl.deleteAll()
       actualResult match {
         case Success(value) => assert(value == expectedResult)
